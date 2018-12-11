@@ -29,6 +29,12 @@ public class BootServiceImpl implements BootService {
 		// TODO Auto-generated method stub
 		return bootDao.employeInsert(name, salary);
 	}
+
+	@Override
+	public int employeUpdate(String name, int salary) {
+		// TODO Auto-generated method stub
+		return bootDao.employeUpdate(name, salary);
+	}
 	
 	
 

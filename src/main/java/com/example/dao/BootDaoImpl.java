@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.example.jsn.Student;
+import com.example.mod.Customer;
 
 @Repository
 public class BootDaoImpl implements BootDao{
@@ -50,6 +51,22 @@ public class BootDaoImpl implements BootDao{
 		parmaMap.put("sal1", salary);
 		
 		return template.update(inserQuery, parmaMap);
+	}
+	
+	public int employeUpdate(String name, int salary) {
+		String updateQuery = "update emp set(name=name1) where salary=sal1";
+		Map<String, Object> upMap= new HashMap<>();
+		upMap.put("name1", name);
+		upMap.put("sal1", salary);
+		
+		return template.update(updateQuery, upMap);
+	}
+	
+	public int employeInsert(Customer customer) {
+		String queryCustomer = "insert ";
+		String queryAddress = "insert into Address(id, address, country) values()";
+		
+		return 0;
 		
 	}
 }

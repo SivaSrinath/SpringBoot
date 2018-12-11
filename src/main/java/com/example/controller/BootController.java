@@ -22,10 +22,14 @@ import com.example.service.BootService;
 
 @RestController
 public class BootController {
+	
+	@Autowired
+	BootService bootService;
 
 	@PostMapping("getAndReturnYoutube")
 	public Youtube getAndReturnYoutube(@RequestBody List youtube) {
 
+		
 		System.out.println("Return youtube");
 		return null;
 	}
@@ -66,9 +70,6 @@ public class BootController {
 		return "Record Delted :" + primaryKey;
 	}
 
-	@Autowired
-	BootService bootService;
-
 	@GetMapping("getStudent")
 	public Student getStudent(@RequestParam Long studentId) {
 
@@ -85,5 +86,13 @@ public class BootController {
 		System.out.println(req.getParameter("salary"));
 		
 		return bootService.employeInsert(name, salary);
+	}
+	
+	@GetMapping("empoyeUpdate")
+	public int employeUpdate(@RequestParam String name,@RequestParam Integer salary,HttpServletRequest req) {
+		System.out.println(req.getParameter("name"));
+		System.out.println(req.getParameter("salary"));
+		
+		return bootService.employeUpdate(name, salary);
 	}
 }
