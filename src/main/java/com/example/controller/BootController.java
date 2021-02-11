@@ -4,8 +4,11 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -20,16 +23,19 @@ import com.example.jsn.Student;
 import com.example.jsn.Youtube;
 import com.example.service.BootService;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+
 @RestController
 public class BootController {
-	
+
 	@Autowired
 	BootService bootService;
 
 	@PostMapping("getAndReturnYoutube")
 	public Youtube getAndReturnYoutube(@RequestBody List youtube) {
 
-		
 		System.out.println("Return youtube");
 		return null;
 	}
@@ -80,19 +86,35 @@ public class BootController {
 	public Long empLoyeCount() {
 		return bootService.empLoyeCount();
 	}
+
 	@GetMapping("empoyeInsert")
-	public int employeInsert(@RequestParam String name,@RequestParam Double salary,HttpServletRequest req) {
+	public int employeInsert(@RequestParam String name, @RequestParam Double salary, HttpServletRequest req) {
 		System.out.println(req.getParameter("name"));
 		System.out.println(req.getParameter("salary"));
-		
+
 		return bootService.employeInsert(name, salary);
 	}
-	
+
 	@GetMapping("empoyeUpdate")
-	public int employeUpdate(@RequestParam String name,@RequestParam Integer salary,HttpServletRequest req) {
+	public int employeUpdate(@RequestParam String name, @RequestParam Integer salary, HttpServletRequest req) {
 		System.out.println(req.getParameter("name"));
 		System.out.println(req.getParameter("salary"));
-		
+
 		return bootService.employeUpdate(name, salary);
 	}
+
+	
+	  @POST	  
+	  @Path("/")	  
+	  @ApiOperation(value = "create household", response = Object.class)
+	  @ApiResponses(value = {
+			  //@ApiResponse(code = HttpStatus.OK, message = "", response = Object.class),
+			  //@ApiResponse(code = HttpStatus.ACCEPTED, message = "", response = ExceptionResponse.class)
+	  })
+	 public Object craeteHousehold() {
+	  
+		  
+	  return new Integer(0); 
+	  }
+	 
 }
