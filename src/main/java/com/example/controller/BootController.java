@@ -59,6 +59,7 @@ public class BootController {
 
 	}
 
+	//http://localhost:9090/add?no1=10&&num2=2
 	@GetMapping("add")
 	public int add(@RequestParam(name = "no1") int num1, @RequestParam int num2,
 			@RequestParam(required = false) Integer num3) {
@@ -81,6 +82,12 @@ public class BootController {
 
 		return bootService.getStudent(studentId);
 	}
+	
+	@GetMapping("test")
+	public String getTest() {
+
+		return "Siva";
+	}
 
 	@DeleteMapping("empLoyeCount")
 	public Long empLoyeCount() {
@@ -102,7 +109,23 @@ public class BootController {
 
 		return bootService.employeUpdate(name, salary);
 	}
-
+	
+	@GetMapping("/")
+	public String home() {
+		return ("<h1>Welcome</h1>");
+	}
+	
+	@GetMapping("/user")
+	public String user() {
+		return ("<h1>Welcome User</h1>");
+	}
+	
+	@GetMapping("/admin")
+	public String admin() {
+		return ("<h1>Welcome Admin</h1>");
+	}
+	
+	
 	
 	  @POST	  
 	  @Path("/")	  
