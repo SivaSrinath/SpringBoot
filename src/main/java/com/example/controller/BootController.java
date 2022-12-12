@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.jsn.Student;
+import com.example.jsn.Users;
 import com.example.jsn.Youtube;
 import com.example.service.BootService;
 
@@ -59,6 +61,7 @@ public class BootController {
 
 	}
 
+	//http://localhost:9090/add?no1=5&num2=10&num3=5
 	@GetMapping("add")
 	public int add(@RequestParam(name = "no1") int num1, @RequestParam int num2,
 			@RequestParam(required = false) Integer num3) {
@@ -69,6 +72,14 @@ public class BootController {
 
 		return num1 + num2;
 	}
+	//http://localhost:9090/add?no1=5&num2=10&num3=5
+	//http://localhost:9090/add/300
+	@GetMapping("add/{usha}")
+	public int addPath(@PathVariable Integer usha) {
+		return usha;
+	}
+	
+	
 
 	@DeleteMapping("deleterecord/{primaryKey}")
 	public String deleteRecord(@PathVariable int primaryKey) {
@@ -76,10 +87,19 @@ public class BootController {
 		return "Record Delted :" + primaryKey;
 	}
 
+	//http://localhost:9090/getStudent?studentId=10
 	@GetMapping("getStudent")
 	public Student getStudent(@RequestParam Long studentId) {
 
-		return bootService.getStudent(studentId);
+		Student st = bootService.getStudent(studentId);
+		return st;
+	}
+	
+	
+	@GetMapping("getUser")
+	public Users getUser(@RequestParam Integer id) {
+		
+		return bootService.getUser(id);
 	}
 
 	@DeleteMapping("empLoyeCount")

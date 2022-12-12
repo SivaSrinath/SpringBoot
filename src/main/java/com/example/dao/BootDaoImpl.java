@@ -1,5 +1,6 @@
 package com.example.dao;
 
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,13 +10,18 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.example.jsn.Student;
+import com.example.jsn.Users;
 import com.example.mod.Customer;
 
-@Repository
+import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
+
+@Repository @Slf4j
 public class BootDaoImpl implements BootDao{
 	
 	@Autowired
 	NamedParameterJdbcTemplate template;
+	
 
 	@Override
 	public Student getStudent(Long studentId) {
@@ -24,16 +30,33 @@ public class BootDaoImpl implements BootDao{
 		Map<String,Object> sqlParam=new HashMap<>();
 		sqlParam.put("empId",studentId);
 		
-		List<Map<String,Object>>  resMap=template.queryForList(createStudentTable, sqlParam);
+		List<Map<String,Object>>  resMap = template.queryForList(createStudentTable, sqlParam);
 		
 		Student student=new Student();
 		
 		student.setEmpId((Long) resMap.get(0).get("emp_id"));
 		student.setName((String) resMap.get(0).get("name"));
-		
 		student.setSalary((Double) resMap.get(0).get("salary"));
 		
 		return student;
+	}
+
+	@Override
+	public Users getUser(Integer id) {
+		String userTable = "SELECT id, username, enabled, last_login FROM Users where id = :userId";
+		Map<String , Object> sqlUserParam = new HashMap<>();
+		sqlUserParam.put("userId",id );
+		
+		List<Map<String, Object>> userMap = template.queryForList(userTable, sqlUserParam);
+		
+		Users user = new Users();
+		
+		user.setId((Integer) userMap.get(0).get("id"));
+		user.setUsername((String) userMap.get(0).get("username"));
+		user.setEnabled((boolean) userMap.get(0).get("enabled"));
+		user.setLast_login((Timestamp) userMap.get(0).get("last_login"));
+		
+		return user;
 	}
 	
 	public Long empLoyeCount() {

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.dao.BootDao;
 import com.example.jsn.Student;
+import com.example.jsn.Users;
 
 @Service
 public class BootServiceImpl implements BootService {
@@ -16,6 +17,11 @@ public class BootServiceImpl implements BootService {
 	public Student getStudent(Long studentId) {
 
 		return bootDao.getStudent(studentId);
+	}
+	
+	@Override
+	public Users getUser(Integer id) {
+		return bootDao.getUser(id);
 	}
 
 	@Override
