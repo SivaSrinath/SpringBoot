@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.dao.BootDao;
+import com.example.jsn.Addresses;
 import com.example.jsn.Student;
 import com.example.jsn.Users;
 
@@ -18,6 +19,11 @@ public class BootServiceImpl implements BootService {
 
 		return bootDao.getStudent(studentId);
 	}
+	
+//	@Override
+//	public Addresses getAdd(Integer add_id) {
+//		return bootDao.getAdd(add_id);
+//	}
 	
 	@Override
 	public Users getUser(Integer id) {
@@ -41,7 +47,22 @@ public class BootServiceImpl implements BootService {
 		// TODO Auto-generated method stub
 		return bootDao.employeUpdate(name, salary);
 	}
-	
-	
 
+	@Override
+	public Addresses getAdd(Integer add_id) {
+		// TODO Auto-generated method stub
+		return bootDao.getAdd(add_id);
+	}
+
+	@Override
+	public Addresses getAddd(Integer add_id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+//	@Override
+//	public Addresses getAdd(Integer add_id) {
+//		// TODO Auto-generated method stub
+//		return null;
 }
+	

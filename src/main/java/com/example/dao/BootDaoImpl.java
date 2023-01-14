@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.example.jsn.Addresses;
 import com.example.jsn.Student;
 import com.example.jsn.Users;
 import com.example.mod.Customer;
@@ -32,14 +33,38 @@ public class BootDaoImpl implements BootDao{
 		
 		List<Map<String,Object>>  resMap = template.queryForList(createStudentTable, sqlParam);
 		
-		Student student=new Student();
-		
-		student.setEmpId((Long) resMap.get(0).get("emp_id"));
-		student.setName((String) resMap.get(0).get("name"));
-		student.setSalary((Double) resMap.get(0).get("salary"));
-		
-		return student;
+		if(resMap.size() > 0) {
+			Student student=new Student();
+			
+			student.setEmpId((Long) resMap.get(0).get("emp_id"));
+			student.setName((String) resMap.get(0).get("name"));
+			student.setSalary((Double) resMap.get(0).get("salary"));
+			
+			return student;	
+		}
+		return null;
+	
 	}
+	
+	@Override
+	public Addresses getAdd(Integer add_id) {
+		
+		String createAddressesTable = "SELECT add_id, user_id, street, city, state FROM Addresses where add_id= :addId";
+		Map<String, Object> sqlAddParam = new HashMap<>();
+		sqlAddParam.put("addId", add_id);
+		
+		List<Map<String, Object>> addMap = template.queryForList(createAddressesTable, sqlAddParam);
+		
+		Addresses addd = new Addresses();
+		
+		addd.setAdd_id((Integer) addMap.get(0).get("add_id"));
+		addd.setUser_id((Integer) addMap.get(0).get("user_id"));
+		addd.setStreet((String) addMap.get(0).get("street"));
+		addd.setCity((String) addMap.get(0).get("city"));
+		addd.setState((String) addMap.get(0).get("state"));
+		
+		return addd;
+		}
 
 	@Override
 	public Users getUser(Integer id) {

@@ -13,6 +13,7 @@ public class Student {
 	private Long empId;
 	private String name;
 	private Double salary;
+	
 	public Long getEmpId() {
 		return empId;
 	}

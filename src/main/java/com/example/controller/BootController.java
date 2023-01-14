@@ -17,10 +17,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.jsn.Addresses;
 import com.example.jsn.Student;
+import com.example.jsn.StudentRequest;
 import com.example.jsn.Users;
 import com.example.jsn.Youtube;
 import com.example.service.BootService;
@@ -39,6 +42,11 @@ public class BootController {
 	public Youtube getAndReturnYoutube(@RequestBody List youtube) {
 
 		System.out.println("Return youtube");
+		return null;
+	}
+	
+	@PostMapping("inserStudentInfo")
+	public Object insertStudentData(@RequestBody StudentRequest studentRequest) {
 		return null;
 	}
 
@@ -61,7 +69,10 @@ public class BootController {
 
 	}
 
+
 	//http://localhost:9090/add?no1=5&num2=10&num3=5
+
+	//http://localhost:9090/add?no1=10&&num2=2
 	@GetMapping("add")
 	public int add(@RequestParam(name = "no1") int num1, @RequestParam int num2,
 			@RequestParam(required = false) Integer num3) {
@@ -72,6 +83,9 @@ public class BootController {
 
 		return num1 + num2;
 	}
+	
+	
+	
 	//http://localhost:9090/add?no1=5&num2=10&num3=5
 	//http://localhost:9090/add/300
 	@GetMapping("add/{usha}")
@@ -95,11 +109,24 @@ public class BootController {
 		return st;
 	}
 	
+	@GetMapping("getAdd")
+	public Addresses getAdd (@RequestParam Integer add_id) {
+		
+		Addresses add = bootService.getAdd(add_id);
+		return add;
+	}
+	
 	
 	@GetMapping("getUser")
 	public Users getUser(@RequestParam Integer id) {
 		
 		return bootService.getUser(id);
+	}
+	
+	@GetMapping("test")
+	public String getTest() {
+
+		return "Siva";
 	}
 
 	@DeleteMapping("empLoyeCount")
@@ -116,13 +143,32 @@ public class BootController {
 	}
 
 	@GetMapping("empoyeUpdate")
-	public int employeUpdate(@RequestParam String name, @RequestParam Integer salary, HttpServletRequest req) {
+	public int employeUpdate(@RequestParam String name, @RequestParam Integer salary, HttpServletRequest req
+			, @RequestHeader String test) {
+		System.out.println("Request header is :"+ test);
 		System.out.println(req.getParameter("name"));
 		System.out.println(req.getParameter("salary"));
 
 		return bootService.employeUpdate(name, salary);
 	}
-
+	
+	
+	@GetMapping("/")
+	public String home() {
+		return ("<h1>Welcome</h1>");
+	}
+	
+	@GetMapping("/user")
+	public String user() {
+		return ("<h1>Welcome User</h1>");
+	}
+	
+	@GetMapping("/admin")
+	public String admin() {
+		return ("<h1>Welcome Admin</h1>");
+	}
+	
+	
 	
 	  @POST	  
 	  @Path("/")	  
