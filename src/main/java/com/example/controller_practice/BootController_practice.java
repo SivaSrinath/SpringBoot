@@ -1,12 +1,21 @@
 package com.example.controller_practice;
 
+import java.util.ArrayList;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.service.BootService;
+
 @RestController
 public class BootController_practice {
+	
+	@Autowired
+	BootService bootservice;
 	
 	//======================================================
 	//http://localhost:9090/sub?num1=100&number2=10&number3=5
@@ -31,4 +40,12 @@ public class BootController_practice {
 	}
 	
 	//===========================================================
+	
+	
+	@GetMapping("/JPMC")
+	public JPMC etfInfo(@RequestBody Vanguard_Root van) {
+		JPMC jpmc = bootservice.etfInfo(van);
+		return jpmc;
+	}
+	
 }

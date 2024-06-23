@@ -1,8 +1,15 @@
 package com.example.service;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.controller_practice.JPMC;
+import com.example.controller_practice.SecurityDetail;
+import com.example.controller_practice.TransactionDetail;
+import com.example.controller_practice.Vanguard;
+import com.example.controller_practice.Vanguard_Root;
 import com.example.dao.BootDao;
 import com.example.jsn.Addresses;
 import com.example.jsn.Student;
@@ -58,6 +65,44 @@ public class BootServiceImpl implements BootService {
 	public Addresses getAddd(Integer add_id) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public JPMC etfInfo(Vanguard_Root van) {
+		
+		JPMC jpmc = new JPMC();
+
+		ArrayList<SecurityDetail> secList = new ArrayList<>();
+		ArrayList<TransactionDetail> tranList = new ArrayList<>();
+
+		ArrayList<Vanguard> vanObj = van.getVanguard();
+
+		vanObj.stream().forEach(vanLoop -> {
+
+			jpmc.setFileFormat("s");
+			jpmc.setFileName("ss");
+
+			SecurityDetail secDet = new SecurityDetail();
+
+			secDet.setEtfOrderId(vanLoop.getEtfOrderId());
+			secDet.setSecurityName(vanLoop.getSecName());
+			secDet.setTeam(vanLoop.getTeamName());
+
+			secList.add(secDet);
+
+			TransactionDetail tranDet = new TransactionDetail();
+
+			tranDet.setEtfOrderId(vanLoop.getEtfOrderId());
+			tranDet.setTransactionDate(vanLoop.getTransactionDate());
+			tranDet.setTransactionId(vanLoop.getTransactionId());
+
+			tranList.add(tranDet);
+		});
+
+		jpmc.setSecurityDetails(secList);
+		jpmc.setTransactionDetails(tranList);
+
+		return jpmc;
 	}
 
 //	@Override

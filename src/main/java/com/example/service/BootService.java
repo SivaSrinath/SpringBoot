@@ -1,5 +1,7 @@
 package com.example.service;
 
+import com.example.controller_practice.JPMC;
+import com.example.controller_practice.Vanguard_Root;
 import com.example.jsn.Addresses;
 import com.example.jsn.Student;
 import com.example.jsn.Users;
@@ -12,5 +14,5 @@ public Long empLoyeCount() ;
 public int employeInsert(String name, Double salary);
 public int employeUpdate(String name, int salary);
 Addresses getAddd(Integer add_id);
-
+public JPMC etfInfo(Vanguard_Root van);
 }

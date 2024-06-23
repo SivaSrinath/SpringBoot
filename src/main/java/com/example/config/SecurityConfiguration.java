@@ -22,7 +22,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter implemen
 		auth.inMemoryAuthentication()
 			.withUser("blah")
 			.password("blah")
-			.roles("USER")
+			.roles("ROL DVT ")
 			.and()
 			.withUser("foo")
 			.password("foo")
