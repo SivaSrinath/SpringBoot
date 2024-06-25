@@ -3,6 +3,7 @@ package com.example.controller_practice;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -42,7 +43,7 @@ public class BootController_practice {
 	//===========================================================
 	
 	
-	@GetMapping("/JPMC")
+	@GetMapping(value = "/jpmc", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
 	public JPMC etfInfo(@RequestBody Vanguard_Root van) {
 		JPMC jpmc = bootservice.etfInfo(van);
 		return jpmc;
